@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StreamVibe Banner</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #0d0d0d;
+        color: #fff;
+        font-family: "Poppins", sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* ===== BANNER ===== */
+      .banner {
+        position: relative;
+        width: 100%;
+        /* THAY ĐỔI 1: 
+          Đặt chiều cao mặc định (cho desktop) theo tỷ lệ 16:9
+        */
+        height: 56.25vw; /* 16:9 aspect ratio */
+        max-height: 550px; /* Thêm giới hạn chiều cao tối đa */
+        margin: 0 auto;
+        overflow: hidden;
+      }
+
+      .banner-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 1.2s ease-in-out;
+        background: #000;
+      }
+
+      .banner-slide.active {
+        opacity: 1;
+        z-index: 2;
+      }
+
+      .banner-slide video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      /* ===== CONTENT ===== */
+      .banner-content {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        width: 90%;
+        z-index: 3;
+        animation: fadeInUp 0.8s ease;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translate(-50%, 30px);
+        }
+        to {
+          opacity: 1;
+          transform: translate(-50%, 0);
+        }
+      }
+
+      .banner h2 {
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .banner p {
+        font-size: 15px;
+        color: #d3d3d3;
+        line-height: 1.6;
+        max-width: 700px;
+        margin: 0 auto 18px;
+      }
+
+      /* ===== BUTTONS ===== */
+      .banner-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .btn-play {
+        background-color: #e50914;
+        color: #fff;
+        border: none;
+        padding: 10px 22px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .btn-play:hover {
+        background-color: #f40612;
+      }
+
+      .icon-btn {
+        background-color: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        border: none;
+        width: 38px;
+        height: 38px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .icon-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      /* ===== ARROWS ===== */
+      .nav-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.4);
+        color: #fff;
+        border: none;
+        width: 35px;
+        height: 35px;
+        border-radius: 6px;
+        cursor: pointer;
+        z-index: 4;
+        transition: 0.3s;
+      }
+
+      .nav-arrow:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .nav-left {
+        left: 15px;
+      }
+
+      .nav-right {
+        right: 15px;
+      }
+
+      /* ===== DOTS ===== */
+      .dots {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 4;
+      }
+
+      .dot {
+        width: 20px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        transition: 0.3s;
+      }
+
+      .dot.active {
+        background: #e50914;
+        width: 25px;
+      }
+
+      /* ===== RESPONSIVE ===== */
+
+      /* THAY ĐỔI 2: 
+        Không cần media query 992px và 600px
+        cho chiều cao nữa, vì '56.25vw' đã lo việc đó.
+        Chúng ta chỉ cần media query để điều chỉnh
+        font chữ và các nút.
+      */
+
+      @media (max-width: 992px) {
+        /* Không cần set height: 520px nữa */
+        .banner h2 {
+          font-size: 26px;
+        }
+        .banner p {
+          font-size: 14px;
+          max-width: 600px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        /* Không cần set height: 550px nữa */
+        .banner-content {
+          bottom: 30px;
+          width: 90%;
+        }
+
+        .banner h2 {
+          font-size: 24px;
+          margin-bottom: 15px;
+        }
+
+        .banner p {
+          display: none;
+        }
+
+        .nav-arrow,
+        .dots {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="banner">
+      <div class="banner-slide active">
+        <video
+          src="../assets/video/muado.mp4"
+          poster="../assets/banner/muado.jpg"
+          muted
+          loop
+          playsinline
+        ></video>
+      </div>
+
+      <div class="banner-slide">
+        <video
+          src="../assets/video/spidermannowayhome.mp4"
+          poster="../assets/banner/spidermannowayhome.jpg"
+          muted
+          loop
+          playsinline
+        ></video>
+      </div>
+
+      <!-- <div class="banner-slide">
+        <video
+          src="../assets/banner/video-blackpanther.mp4"
+          poster="../assets/banner/blackpanther.jpg"
+          muted
+          loop
+          playsinline
+        ></video>
+      </div> -->
+
+      <div class="banner-content">
+        <h2 id="bannerTitle">Avengers : Endgame</h2>
+        <p id="bannerDesc">
+          With the help of remaining allies, the Avengers must assemble once
+          more in order to undo Thanos's actions and restore balance to the
+          universe.
+        </p>
+        <div class="banner-buttons">
+          <button class="btn-play">
+            <i class="fa-solid fa-play"></i> Play Now
+          </button>
+          <button class="icon-btn"><i class="fa-solid fa-plus"></i></button>
+          <button class="icon-btn">
+            <i class="fa-solid fa-thumbs-up"></i>
+          </button>
+          <button class="icon-btn" id="volume-btn">
+            <i class="fa-solid fa-volume-xmark" id="volume-icon"></i>
+          </button>
+        </div>
+      </div>
+
+      <button class="nav-arrow nav-left">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button class="nav-arrow nav-right">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+      <div class="dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    </div>
+
+    <script>
+      // JavaScript giữ nguyên
+      const banners = [
+        {
+          title: "Avengers : Endgame",
+          desc: "With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos's actions and restore balance to the universe.",
+        },
+        {
+          title: "Spider-Man : No Way Home",
+          desc: "Peter Parker’s identity is revealed, bringing his superhero responsibilities into conflict with his everyday life.",
+        },
+        // {
+        //   title: "Black Panther : Wakanda Forever",
+        //   desc: "The people of Wakanda fight to protect their home from intervening world powers as they mourn the loss of King T’Challa.",
+        // },
+      ];
+
+      let current = 0;
+      const slides = document.querySelectorAll(".banner-slide");
+      const title = document.getElementById("bannerTitle");
+      const desc = document.getElementById("bannerDesc");
+      const dots = document.querySelectorAll(".dot");
+      const videos = document.querySelectorAll(".banner-slide video");
+      const volumeIcon = document.getElementById("volume-icon");
+
+      let videoTimeouts = [];
+      let isGloballyMuted = true;
+
+      function updateSlide(index) {
+        slides.forEach((s, i) => s.classList.toggle("active", i === index));
+        dots.forEach((d, i) => d.classList.toggle("active", i === index));
+        title.textContent = banners[index].title;
+        desc.textContent = banners[index].desc;
+
+        videoTimeouts.forEach(clearTimeout);
+        videoTimeouts = [];
+
+        videos.forEach((video, i) => {
+          video.pause();
+          video.load();
+          video.muted = isGloballyMuted;
+
+          if (i === index) {
+            const timeoutId = setTimeout(() => {
+              video.play();
+            }, 3000);
+            videoTimeouts.push(timeoutId);
+          }
+        });
+      }
+
+      document.querySelector(".nav-left").onclick = () => {
+        current = (current - 1 + banners.length) % banners.length;
+        updateSlide(current);
+      };
+
+      document.querySelector(".nav-right").onclick = () => {
+        current = (current + 1) % banners.length;
+        updateSlide(current);
+      };
+
+      const autoSlideInterval = setInterval(() => {
+        current = (current + 1) % banners.length;
+        updateSlide(current);
+      }, 50000);
+
+      document.getElementById("volume-btn").onclick = () => {
+        isGloballyMuted = !isGloballyMuted;
+        videos.forEach((video) => {
+          video.muted = isGloballyMuted;
+        });
+
+        if (isGloballyMuted) {
+          volumeIcon.classList.remove("fa-volume-high");
+          volumeIcon.classList.add("fa-volume-xmark");
+        } else {
+          volumeIcon.classList.remove("fa-volume-xmark");
+          volumeIcon.classList.add("fa-volume-high");
+        }
+      };
+
+      updateSlide(0);
+    </script>
+  </body>
+</html>
